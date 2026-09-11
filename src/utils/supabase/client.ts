@@ -2,8 +2,9 @@ import { createBrowserClient } from "@supabase/ssr";
 
 import { getSupabaseEnv } from "./env";
 
-// For use from Client Components. The page is server-rendered today, so nothing
-// imports this yet -- it is here for when the app needs browser-side queries.
+// Supabase client for code that runs in the browser. The sales table is loaded
+// on the server, so nothing imports this yet -- it's here for whenever a page
+// needs to fetch or update data after it has loaded.
 export function createClient() {
   const { url, key } = getSupabaseEnv();
 

@@ -1,6 +1,9 @@
-// Supabase's "Connect" dialog has used a few different names for the public key
-// over time. Each reference below is statically replaced at build time by Next,
-// so they must be written out in full rather than looked up dynamically.
+// Supabase has renamed the public API key a couple of times, so the name in your
+// .env.local depends on when the project was created. Check all three.
+//
+// These have to be spelled out in full rather than looked up in a loop: Next.js
+// finds NEXT_PUBLIC_* by scanning the source and substituting the value at build
+// time, so anything it can't see literally comes back undefined in the browser.
 export function getSupabaseEnv() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key =

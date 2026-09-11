@@ -3,7 +3,8 @@ import { cookies } from "next/headers";
 
 import { getSupabaseEnv } from "./env";
 
-// `cookies()` is async in Next 16, so this factory is async too.
+// Supabase client for server-side code: pages, layouts, route handlers.
+// Async because Next 16 made cookies() async, so callers need to await it.
 export async function createClient() {
   const cookieStore = await cookies();
   const { url, key } = getSupabaseEnv();
@@ -19,8 +20,9 @@ export async function createClient() {
             cookieStore.set(name, value, options);
           }
         } catch {
-          // Called from a Server Component, which cannot write cookies. Safe to
-          // ignore when a proxy is refreshing sessions; there is no auth yet.
+          // Pages can read cookies but not write them, so this throws when the
+          // client tries to save a refreshed login. Harmless while the app is
+          // read-only; revisit if we ever add accounts.
         }
       },
     },
